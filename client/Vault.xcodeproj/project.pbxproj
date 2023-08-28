@@ -1,0 +1,609 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C295E6F62A9488D30002F492 /* VaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E6F52A9488D30002F492 /* VaultApp.swift */; };
+		C295E6F82A9488D30002F492 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E6F72A9488D30002F492 /* ContentView.swift */; };
+		C295E6FA2A9488D40002F492 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C295E6F92A9488D40002F492 /* Assets.xcassets */; };
+		C295E6FD2A9488D40002F492 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C295E6FC2A9488D40002F492 /* Preview Assets.xcassets */; };
+		C295E7082A9488D40002F492 /* VaultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7072A9488D40002F492 /* VaultTests.swift */; };
+		C295E7122A9488D40002F492 /* VaultUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7112A9488D40002F492 /* VaultUITests.swift */; };
+		C295E7142A9488D40002F492 /* VaultUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7132A9488D40002F492 /* VaultUITestsLaunchTests.swift */; };
+		C295E7212A9C50260002F492 /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7202A9C50260002F492 /* TransactionModel.swift */; };
+		C295E7252A9C5E940002F492 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7242A9C5E940002F492 /* TransactionViewModel.swift */; };
+		C295E7282A9C5FB60002F492 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7272A9C5FB60002F492 /* TransactionView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C295E7042A9488D40002F492 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C295E6EA2A9488D30002F492 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C295E6F12A9488D30002F492;
+			remoteInfo = Vault;
+		};
+		C295E70E2A9488D40002F492 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C295E6EA2A9488D30002F492 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C295E6F12A9488D30002F492;
+			remoteInfo = Vault;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C295E6F22A9488D30002F492 /* Vault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vault.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C295E6F52A9488D30002F492 /* VaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultApp.swift; sourceTree = "<group>"; };
+		C295E6F72A9488D30002F492 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C295E6F92A9488D40002F492 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C295E6FC2A9488D40002F492 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C295E6FE2A9488D40002F492 /* Vault.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vault.entitlements; sourceTree = "<group>"; };
+		C295E7032A9488D40002F492 /* VaultTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VaultTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C295E7072A9488D40002F492 /* VaultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultTests.swift; sourceTree = "<group>"; };
+		C295E70D2A9488D40002F492 /* VaultUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VaultUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C295E7112A9488D40002F492 /* VaultUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUITests.swift; sourceTree = "<group>"; };
+		C295E7132A9488D40002F492 /* VaultUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C295E7202A9C50260002F492 /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
+		C295E7242A9C5E940002F492 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		C295E7272A9C5FB60002F492 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C295E6EF2A9488D30002F492 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C295E7002A9488D40002F492 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C295E70A2A9488D40002F492 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C295E6E92A9488D30002F492 = {
+			isa = PBXGroup;
+			children = (
+				C295E6F42A9488D30002F492 /* Vault */,
+				C295E7062A9488D40002F492 /* VaultTests */,
+				C295E7102A9488D40002F492 /* VaultUITests */,
+				C295E6F32A9488D30002F492 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C295E6F32A9488D30002F492 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C295E6F22A9488D30002F492 /* Vault.app */,
+				C295E7032A9488D40002F492 /* VaultTests.xctest */,
+				C295E70D2A9488D40002F492 /* VaultUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C295E6F42A9488D30002F492 /* Vault */ = {
+			isa = PBXGroup;
+			children = (
+				C295E7262A9C5FA80002F492 /* view */,
+				C295E7232A9C5E720002F492 /* viewmodel */,
+				C295E7222A9C5E650002F492 /* model */,
+				C295E6F52A9488D30002F492 /* VaultApp.swift */,
+				C295E6F72A9488D30002F492 /* ContentView.swift */,
+				C295E6F92A9488D40002F492 /* Assets.xcassets */,
+				C295E6FE2A9488D40002F492 /* Vault.entitlements */,
+				C295E6FB2A9488D40002F492 /* Preview Content */,
+			);
+			path = Vault;
+			sourceTree = "<group>";
+		};
+		C295E6FB2A9488D40002F492 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				C295E6FC2A9488D40002F492 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C295E7062A9488D40002F492 /* VaultTests */ = {
+			isa = PBXGroup;
+			children = (
+				C295E7072A9488D40002F492 /* VaultTests.swift */,
+			);
+			path = VaultTests;
+			sourceTree = "<group>";
+		};
+		C295E7102A9488D40002F492 /* VaultUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C295E7112A9488D40002F492 /* VaultUITests.swift */,
+				C295E7132A9488D40002F492 /* VaultUITestsLaunchTests.swift */,
+			);
+			path = VaultUITests;
+			sourceTree = "<group>";
+		};
+		C295E7222A9C5E650002F492 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				C295E7202A9C50260002F492 /* TransactionModel.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		C295E7232A9C5E720002F492 /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				C295E7242A9C5E940002F492 /* TransactionViewModel.swift */,
+			);
+			path = viewmodel;
+			sourceTree = "<group>";
+		};
+		C295E7262A9C5FA80002F492 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				C295E7272A9C5FB60002F492 /* TransactionView.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C295E6F12A9488D30002F492 /* Vault */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C295E7172A9488D40002F492 /* Build configuration list for PBXNativeTarget "Vault" */;
+			buildPhases = (
+				C295E6EE2A9488D30002F492 /* Sources */,
+				C295E6EF2A9488D30002F492 /* Frameworks */,
+				C295E6F02A9488D30002F492 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Vault;
+			productName = Vault;
+			productReference = C295E6F22A9488D30002F492 /* Vault.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C295E7022A9488D40002F492 /* VaultTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C295E71A2A9488D40002F492 /* Build configuration list for PBXNativeTarget "VaultTests" */;
+			buildPhases = (
+				C295E6FF2A9488D40002F492 /* Sources */,
+				C295E7002A9488D40002F492 /* Frameworks */,
+				C295E7012A9488D40002F492 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C295E7052A9488D40002F492 /* PBXTargetDependency */,
+			);
+			name = VaultTests;
+			productName = VaultTests;
+			productReference = C295E7032A9488D40002F492 /* VaultTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C295E70C2A9488D40002F492 /* VaultUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C295E71D2A9488D40002F492 /* Build configuration list for PBXNativeTarget "VaultUITests" */;
+			buildPhases = (
+				C295E7092A9488D40002F492 /* Sources */,
+				C295E70A2A9488D40002F492 /* Frameworks */,
+				C295E70B2A9488D40002F492 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C295E70F2A9488D40002F492 /* PBXTargetDependency */,
+			);
+			name = VaultUITests;
+			productName = VaultUITests;
+			productReference = C295E70D2A9488D40002F492 /* VaultUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C295E6EA2A9488D30002F492 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					C295E6F12A9488D30002F492 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					C295E7022A9488D40002F492 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = C295E6F12A9488D30002F492;
+					};
+					C295E70C2A9488D40002F492 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = C295E6F12A9488D30002F492;
+					};
+				};
+			};
+			buildConfigurationList = C295E6ED2A9488D30002F492 /* Build configuration list for PBXProject "Vault" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C295E6E92A9488D30002F492;
+			productRefGroup = C295E6F32A9488D30002F492 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C295E6F12A9488D30002F492 /* Vault */,
+				C295E7022A9488D40002F492 /* VaultTests */,
+				C295E70C2A9488D40002F492 /* VaultUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C295E6F02A9488D30002F492 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C295E6FD2A9488D40002F492 /* Preview Assets.xcassets in Resources */,
+				C295E6FA2A9488D40002F492 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C295E7012A9488D40002F492 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C295E70B2A9488D40002F492 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C295E6EE2A9488D30002F492 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C295E6F82A9488D30002F492 /* ContentView.swift in Sources */,
+				C295E7212A9C50260002F492 /* TransactionModel.swift in Sources */,
+				C295E7282A9C5FB60002F492 /* TransactionView.swift in Sources */,
+				C295E6F62A9488D30002F492 /* VaultApp.swift in Sources */,
+				C295E7252A9C5E940002F492 /* TransactionViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C295E6FF2A9488D40002F492 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C295E7082A9488D40002F492 /* VaultTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C295E7092A9488D40002F492 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C295E7122A9488D40002F492 /* VaultUITests.swift in Sources */,
+				C295E7142A9488D40002F492 /* VaultUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C295E7052A9488D40002F492 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C295E6F12A9488D30002F492 /* Vault */;
+			targetProxy = C295E7042A9488D40002F492 /* PBXContainerItemProxy */;
+		};
+		C295E70F2A9488D40002F492 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C295E6F12A9488D30002F492 /* Vault */;
+			targetProxy = C295E70E2A9488D40002F492 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C295E7152A9488D40002F492 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C295E7162A9488D40002F492 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		C295E7182A9488D40002F492 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vault/Vault.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Vault/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clyde.Vault;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C295E7192A9488D40002F492 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vault/Vault.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Vault/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clyde.Vault;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C295E71B2A9488D40002F492 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clyde.VaultTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vault.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vault";
+			};
+			name = Debug;
+		};
+		C295E71C2A9488D40002F492 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clyde.VaultTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vault.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vault";
+			};
+			name = Release;
+		};
+		C295E71E2A9488D40002F492 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clyde.VaultUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Vault;
+			};
+			name = Debug;
+		};
+		C295E71F2A9488D40002F492 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clyde.VaultUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Vault;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C295E6ED2A9488D30002F492 /* Build configuration list for PBXProject "Vault" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C295E7152A9488D40002F492 /* Debug */,
+				C295E7162A9488D40002F492 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C295E7172A9488D40002F492 /* Build configuration list for PBXNativeTarget "Vault" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C295E7182A9488D40002F492 /* Debug */,
+				C295E7192A9488D40002F492 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C295E71A2A9488D40002F492 /* Build configuration list for PBXNativeTarget "VaultTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C295E71B2A9488D40002F492 /* Debug */,
+				C295E71C2A9488D40002F492 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C295E71D2A9488D40002F492 /* Build configuration list for PBXNativeTarget "VaultUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C295E71E2A9488D40002F492 /* Debug */,
+				C295E71F2A9488D40002F492 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C295E6EA2A9488D30002F492 /* Project object */;
+}

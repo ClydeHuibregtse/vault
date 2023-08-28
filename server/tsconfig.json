@@ -1,8 +1,11 @@
-{  
-    "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs",
-        "esModuleInterop": true,
-        "moduleResolution": "node",
-    }
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    /* ... your props ... */
+  },
+  "ts-node": {
+      "esm": true,
+      "experimentalSpecifierResolution": "node",
+  }
 }

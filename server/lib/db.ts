@@ -7,7 +7,7 @@ import { Statement } from "./statements";
 // Relative path to the directory of sql files
 const SQL_INSTRUCTION_PATH = path.join(__dirname, "sql");
 // For now, store the db file in the same directory
-const TRANSACTION_DB_PATH = path.join(SQL_INSTRUCTION_PATH, "transactions.db");
+export const TRANSACTION_DB_PATH = path.join(SQL_INSTRUCTION_PATH, "transactions.db");
 
 // Make a custom type to hint at valid sql commands loaded from disk
 type SqlString = string;
@@ -37,7 +37,7 @@ function _defaultDBCallback(obj: any, err, res, rej) {
     }
 }
 
-class TransactionDB {
+export class TransactionDB {
     db: sqlite3.Database | undefined;
 
     constructor() {
@@ -119,29 +119,29 @@ class TransactionDB {
     }
 }
 
-(async () => {
-    const txDB = new TransactionDB();
+// (async () => {
+//     const txDB = new TransactionDB();
 
-    await txDB.initialize(TRANSACTION_DB_PATH);
-    await txDB.clear();
-    const filePath1 = `${__dirname}/../data/apple.csv`;
-    const filePath2 = `${__dirname}/../data/activity-2.csv`;
-    const stmt1 = await Statement.fromCSV(
-        filePath1,
-        TransactionMethod.APPLE_CC,
-    );
-    const stmt2 = await Statement.fromCSV(filePath2, TransactionMethod.AMEX_CC);
-    await txDB.insertStatement(stmt1);
-    await txDB.insertStatement(stmt2);
-    // let txs = [];
-    // for (let i = 0; i < 10; i++) {
-    //     const tx1 = new Transaction("2023-06-16", "jkl;", 20.0 * i + 1, TransactionMethod.AMEX_CC, "a purchase")
-    //     // await txDB.insertTransaction(tx1);
-    //     txs.push(tx1);
-    // }
-    // const stmt = new Statement(txs, "test.csv");
-    // await txDB.insertTransactions(txs);
-    let txs_ = await txDB.getAllTransactions();
-    console.log(txs_);
-    await txDB.close();
-})();
+//     await txDB.initialize(TRANSACTION_DB_PATH);
+//     await txDB.clear();
+//     const filePath1 = `${__dirname}/../data/apple.csv`;
+//     const filePath2 = `${__dirname}/../data/activity-2.csv`;
+//     const stmt1 = await Statement.fromCSV(
+//         filePath1,
+//         TransactionMethod.APPLE_CC,
+//     );
+//     const stmt2 = await Statement.fromCSV(filePath2, TransactionMethod.AMEX_CC);
+//     await txDB.insertStatement(stmt1);
+//     await txDB.insertStatement(stmt2);
+//     // let txs = [];
+//     // for (let i = 0; i < 10; i++) {
+//     //     const tx1 = new Transaction("2023-06-16", "jkl;", 20.0 * i + 1, TransactionMethod.AMEX_CC, "a purchase")
+//     //     // await txDB.insertTransaction(tx1);
+//     //     txs.push(tx1);
+//     // }
+//     // const stmt = new Statement(txs, "test.csv");
+//     // await txDB.insertTransactions(txs);
+//     let txs_ = await txDB.getAllTransactions();
+//     console.log(txs_);
+//     await txDB.close();
+// })();

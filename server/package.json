@@ -2,11 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
+    "start": "npx tsx index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write \"lib/**/*.ts\"",
-    "db": "[ -f lib/sql/transactions.db ] && rm lib/sql/transactions.db ; ts-node --esm lib/db.ts"
+    "db": "[ -f lib/sql/transactions.db ] && rm lib/sql/transactions.db ; npx tsx index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,8 @@
     "fs": "^0.0.1-security",
     "prettier": "^3.0.2",
     "sqlite3": "^5.1.6",
-    "ts-node": "^10.9.1"
+    "tsx": "^3.12.7"
+  },
+  "devDependencies": {
   }
 }
