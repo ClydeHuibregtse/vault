@@ -16,7 +16,12 @@
 		C295E7142A9488D40002F492 /* VaultUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7132A9488D40002F492 /* VaultUITestsLaunchTests.swift */; };
 		C295E7212A9C50260002F492 /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7202A9C50260002F492 /* TransactionModel.swift */; };
 		C295E7252A9C5E940002F492 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7242A9C5E940002F492 /* TransactionViewModel.swift */; };
-		C295E7282A9C5FB60002F492 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7272A9C5FB60002F492 /* TransactionView.swift */; };
+		C295E72A2A9DB5A60002F492 /* TransactionChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7292A9DB5A60002F492 /* TransactionChart.swift */; };
+		C295E72C2A9DBBDF0002F492 /* TransactionViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E72B2A9DBBDF0002F492 /* TransactionViewer.swift */; };
+		C295E72E2AA56DBA0002F492 /* DBViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E72D2AA56DBA0002F492 /* DBViewer.swift */; };
+		C295E7302AA583B40002F492 /* StatementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E72F2AA583B40002F492 /* StatementModel.swift */; };
+		C295E7322AA584270002F492 /* StatementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7312AA584270002F492 /* StatementViewModel.swift */; };
+		C295E7352AA584A90002F492 /* APIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7342AA584A90002F492 /* APIHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +55,12 @@
 		C295E7132A9488D40002F492 /* VaultUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C295E7202A9C50260002F492 /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
 		C295E7242A9C5E940002F492 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
-		C295E7272A9C5FB60002F492 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
+		C295E7292A9DB5A60002F492 /* TransactionChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionChart.swift; sourceTree = "<group>"; };
+		C295E72B2A9DBBDF0002F492 /* TransactionViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewer.swift; sourceTree = "<group>"; };
+		C295E72D2AA56DBA0002F492 /* DBViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBViewer.swift; sourceTree = "<group>"; };
+		C295E72F2AA583B40002F492 /* StatementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementModel.swift; sourceTree = "<group>"; };
+		C295E7312AA584270002F492 /* StatementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementViewModel.swift; sourceTree = "<group>"; };
+		C295E7342AA584A90002F492 /* APIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +111,10 @@
 		C295E6F42A9488D30002F492 /* Vault */ = {
 			isa = PBXGroup;
 			children = (
-				C295E7262A9C5FA80002F492 /* view */,
-				C295E7232A9C5E720002F492 /* viewmodel */,
-				C295E7222A9C5E650002F492 /* model */,
+				C295E7332AA584980002F492 /* Utils */,
+				C295E7262A9C5FA80002F492 /* Views */,
+				C295E7232A9C5E720002F492 /* ViewModel */,
+				C295E7222A9C5E650002F492 /* Model */,
 				C295E6F52A9488D30002F492 /* VaultApp.swift */,
 				C295E6F72A9488D30002F492 /* ContentView.swift */,
 				C295E6F92A9488D40002F492 /* Assets.xcassets */,
@@ -138,28 +149,40 @@
 			path = VaultUITests;
 			sourceTree = "<group>";
 		};
-		C295E7222A9C5E650002F492 /* model */ = {
+		C295E7222A9C5E650002F492 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				C295E7202A9C50260002F492 /* TransactionModel.swift */,
+				C295E72F2AA583B40002F492 /* StatementModel.swift */,
 			);
-			path = model;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		C295E7232A9C5E720002F492 /* viewmodel */ = {
+		C295E7232A9C5E720002F492 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				C295E7242A9C5E940002F492 /* TransactionViewModel.swift */,
+				C295E7312AA584270002F492 /* StatementViewModel.swift */,
 			);
-			path = viewmodel;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		C295E7262A9C5FA80002F492 /* view */ = {
+		C295E7262A9C5FA80002F492 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C295E7272A9C5FB60002F492 /* TransactionView.swift */,
+				C295E7292A9DB5A60002F492 /* TransactionChart.swift */,
+				C295E72B2A9DBBDF0002F492 /* TransactionViewer.swift */,
+				C295E72D2AA56DBA0002F492 /* DBViewer.swift */,
 			);
-			path = view;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C295E7332AA584980002F492 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C295E7342AA584A90002F492 /* APIHelpers.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,10 +315,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C295E7352AA584A90002F492 /* APIHelpers.swift in Sources */,
 				C295E6F82A9488D30002F492 /* ContentView.swift in Sources */,
+				C295E72A2A9DB5A60002F492 /* TransactionChart.swift in Sources */,
+				C295E72E2AA56DBA0002F492 /* DBViewer.swift in Sources */,
+				C295E7302AA583B40002F492 /* StatementModel.swift in Sources */,
+				C295E7322AA584270002F492 /* StatementViewModel.swift in Sources */,
 				C295E7212A9C50260002F492 /* TransactionModel.swift in Sources */,
-				C295E7282A9C5FB60002F492 /* TransactionView.swift in Sources */,
 				C295E6F62A9488D30002F492 /* VaultApp.swift in Sources */,
+				C295E72C2A9DBBDF0002F492 /* TransactionViewer.swift in Sources */,
 				C295E7252A9C5E940002F492 /* TransactionViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,6 +2,7 @@
     Module for handling any type of tabular statement
 */
 import fs from "fs";
+import path from "path";
 import csvParser from "csv-parser";
 import { hash } from "./hash";
 import { TransactionMethod, Transaction, RawTransaction } from "./transactions";
@@ -11,10 +12,11 @@ export class Statement {
         public transactions: Transaction[],
         public pathToCSV: string,
         public transactionMethod: TransactionMethod,
+        public date: Date
     ) {}
 
     toColumns(): any[] {
-        return [this.hash(), this.pathToCSV, this.transactionMethod];
+        return [this.hash(), path.resolve(this.pathToCSV), this.transactionMethod, this.date.toISOString()];
     }
 
     private hash(): number {
@@ -28,9 +30,10 @@ export class Statement {
     static async fromCSV(
         pathToCSV: string,
         txMethod: TransactionMethod,
+        date: Date
     ): Promise<Statement> {
         const txs = await Statement.readCSV(pathToCSV, txMethod);
-        return new Statement(txs, pathToCSV, txMethod);
+        return new Statement(txs, pathToCSV, txMethod, date);
     }
 
     static readCSV(

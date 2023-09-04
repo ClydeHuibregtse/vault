@@ -11,13 +11,11 @@ struct TransactionView: View {
     @ObservedObject var viewModel: TransactionsViewModel
     
     var body: some View {
-        NavigationView {
-            List(viewModel.transactions) { item in
-                Text(item.description)
-            }
-            .onAppear {
-                viewModel.fetchItems()
-            }
+        List(viewModel.transactions) { item in
+            Text(item.description)
+        }
+        .onAppear {
+            viewModel.fetchItems()
         }
     }
 }

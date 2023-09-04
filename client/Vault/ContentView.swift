@@ -7,12 +7,28 @@
 import Foundation
 import SwiftUI
 
-
-
 struct ContentView: View {
     let txViewModel = TransactionsViewModel()
+    let stmtViewModel = StatementsViewModel()
+
     var body: some View {
-        TransactionView(viewModel: txViewModel)
+        GeometryReader { geometry in
+            HStack() {
+                
+                VStack {
+                    DBViewer(txViewModel: txViewModel, stmtViewModel: stmtViewModel)
+                        .frame(width: geometry.size.width / 4, alignment: .leading)
+                        .padding()
+                }
+                VStack {
+                    TransactionViewer(viewModel: txViewModel)
+                        .padding()
+                    TransactionChart(viewModel: txViewModel)
+                        .padding()
+                }
+                .frame(width: 3 * geometry.size.width / 4, alignment: .leading)
+            }
+        }
     }
 }
 

@@ -2,6 +2,7 @@
 -- This creates a table of statements in the transaction DB
 CREATE TABLE IF NOT EXISTS statements (
     id INTEGER PRIMARY KEY,
+    date DATE,
     pathToCSV TEXT,
     transactionMethod TEXT
 );
