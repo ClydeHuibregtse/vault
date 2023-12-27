@@ -137,33 +137,33 @@ export class TransactionDB {
 
 }
 
-(async () => {
-    const txDB = new TransactionDB();
+// (async () => {
+//     const txDB = new TransactionDB();
 
-    await txDB.initialize(TRANSACTION_DB_PATH);
-    await txDB.clear();
-    const filePath1 = `${__dirname}/../data/apple.csv`;
-    const d1 = new Date("1998-06-01");
-    const d2 = new Date("1999-06-01");
-    const filePath2 = `${__dirname}/../data/activity-2.csv`;
-    const stmt1 = await Statement.fromCSV(
-        filePath1,
-        TransactionMethod.APPLE_CC,
-        d1
-    );
-    const stmt2 = await Statement.fromCSV(filePath2, TransactionMethod.AMEX_CC, d2);
-    console.log(stmt2)
-    await txDB.insertStatement(stmt1);
-    await txDB.insertStatement(stmt2);
-    // let txs = [];
-    // for (let i = 0; i < 10; i++) {
-    //     const tx1 = new Transaction("2023-06-16", "jkl;", 20.0 * i + 1, TransactionMethod.AMEX_CC, "a purchase")
-    //     // await txDB.insertTransaction(tx1);
-    //     txs.push(tx1);
-    // }
-    // const stmt = new Statement(txs, "test.csv");
-    // await txDB.insertTransactions(txs);
-    let txs_ = await txDB.getAllTransactions();
-    console.log(txs_);
-    await txDB.close();
-})();
+//     await txDB.initialize(TRANSACTION_DB_PATH);
+//     await txDB.clear();
+//     const filePath1 = `${__dirname}/../data/apple.csv`;
+//     const d1 = new Date("1998-06-01");
+//     const d2 = new Date("1999-06-01");
+//     const filePath2 = `${__dirname}/../data/activity-2.csv`;
+//     // const stmt1 = await Statement.fromCSV(
+//     //     filePath1,
+//     //     TransactionMethod.APPLE_CC,
+//     //     d1
+//     // );
+//     // const stmt2 = await Statement.fromCSV(filePath2, TransactionMethod.AMEX_CC, d2);
+//     // console.log(stmt2)
+//     // await txDB.insertStatement(stmt1);
+//     // await txDB.insertStatement(stmt2);
+//     // let txs = [];
+//     // for (let i = 0; i < 10; i++) {
+//     //     const tx1 = new Transaction("2023-06-16", "jkl;", 20.0 * i + 1, TransactionMethod.AMEX_CC, "a purchase")
+//     //     // await txDB.insertTransaction(tx1);
+//     //     txs.push(tx1);
+//     // }
+//     // const stmt = new Statement(txs, "test.csv");
+//     // await txDB.insertTransactions(txs);
+//     let txs_ = await txDB.getAllTransactions();
+//     console.log(txs_);
+//     await txDB.close();
+// })();

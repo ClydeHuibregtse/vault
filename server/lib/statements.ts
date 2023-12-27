@@ -7,6 +7,8 @@ import csvParser from "csv-parser";
 import { hash } from "./hash";
 import { TransactionMethod, Transaction, RawTransaction } from "./transactions";
 
+export const STATEMENT_STORAGE_PATH = path.join(__dirname, "..", "data");
+
 export class Statement {
     constructor(
         public transactions: Transaction[],

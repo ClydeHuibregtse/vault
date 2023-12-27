@@ -11,28 +11,34 @@ class StatementsViewModel: ObservableObject {
     @Published var statements: [Statement] = []
 
     func fetchStatements(forceFetch: Bool = false) {
-        if self.statements.count != 0 && !forceFetch {
-            return
-        }
+        print("Fetching all statements")
+//        if self.statements.count != 0 && !forceFetch {
+//            return
+//        }
         requestJSON(endpoint:"/statements") { result in
             self.statements = result
         }
     }
     
-    // Add a single statement from the User-provided filepath
-    func addStatement(stmtPath: String) {
+    // Add a single statement
+    func uploadStatement(stmt: Statement, cb: @escaping () -> Void) async {
+        Task {
+            do {
+                let res = await uploadCSV(
+                    fileURL: URL(string: stmt.pathToCSV)!,
+                    kwargs: ["date": "\(stmt.date.formatted(date: .long, time: .omitted))", "txMethod": "\(stmt.transactionMethod)"],
+                    cb: cb
+                )
+                print("One statement inserted")
+            }
+        }
         
     }
-    
-    
-    // Return all transactions matching some filter
-//    func filterBy() -> [Statement] {
-//        var matchingStatements: [Statement] = []
-//        for stmt in self.statements {
-//
-//        }
-//        return matchingStatements
-//    }
-    
-    // Other methods and properties related to item management
+    // Add many statements
+    func uploadStatements(stmts: [Statement], cb: @escaping () -> Void) async -> String {
+        for stmt in stmts {
+            await self.uploadStatement(stmt: stmt, cb: cb)
+        }
+        return "Cool"
+    }
 }

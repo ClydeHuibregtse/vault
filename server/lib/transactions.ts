@@ -21,6 +21,24 @@ export enum TransactionMethod {
     CASH = "Cash",
 }
 
+export function stringToTransactionMethod(value: string): TransactionMethod | null {
+    if (value == TransactionMethod.AMEX_CC) {
+        return TransactionMethod.AMEX_CC
+    }
+    if (value == TransactionMethod.FIDELITY_CC) {
+        return TransactionMethod.FIDELITY_CC
+    }
+    if (value == TransactionMethod.FIDELITY_DC) {
+        return TransactionMethod.FIDELITY_DC
+    }
+    if (value == TransactionMethod.APPLE_CC) {
+        return TransactionMethod.APPLE_CC
+    }
+    if (value == TransactionMethod.CASH) {
+        return TransactionMethod.CASH
+    }
+  }
+
 export class Transaction {
     constructor(
         public date: string,

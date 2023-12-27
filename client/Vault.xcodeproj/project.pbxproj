@@ -22,6 +22,8 @@
 		C295E7302AA583B40002F492 /* StatementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E72F2AA583B40002F492 /* StatementModel.swift */; };
 		C295E7322AA584270002F492 /* StatementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7312AA584270002F492 /* StatementViewModel.swift */; };
 		C295E7352AA584A90002F492 /* APIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7342AA584A90002F492 /* APIHelpers.swift */; };
+		C295E7372AA67B840002F492 /* StatementUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7362AA67B840002F492 /* StatementUpload.swift */; };
+		C295E7392AA684CE0002F492 /* UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C295E7382AA684CE0002F492 /* UIHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		C295E72F2AA583B40002F492 /* StatementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementModel.swift; sourceTree = "<group>"; };
 		C295E7312AA584270002F492 /* StatementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementViewModel.swift; sourceTree = "<group>"; };
 		C295E7342AA584A90002F492 /* APIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHelpers.swift; sourceTree = "<group>"; };
+		C295E7362AA67B840002F492 /* StatementUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementUpload.swift; sourceTree = "<group>"; };
+		C295E7382AA684CE0002F492 /* UIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +177,7 @@
 				C295E7292A9DB5A60002F492 /* TransactionChart.swift */,
 				C295E72B2A9DBBDF0002F492 /* TransactionViewer.swift */,
 				C295E72D2AA56DBA0002F492 /* DBViewer.swift */,
+				C295E7362AA67B840002F492 /* StatementUpload.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				C295E7342AA584A90002F492 /* APIHelpers.swift */,
+				C295E7382AA684CE0002F492 /* UIHelpers.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -316,10 +322,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C295E7352AA584A90002F492 /* APIHelpers.swift in Sources */,
+				C295E7392AA684CE0002F492 /* UIHelpers.swift in Sources */,
 				C295E6F82A9488D30002F492 /* ContentView.swift in Sources */,
 				C295E72A2A9DB5A60002F492 /* TransactionChart.swift in Sources */,
 				C295E72E2AA56DBA0002F492 /* DBViewer.swift in Sources */,
 				C295E7302AA583B40002F492 /* StatementModel.swift in Sources */,
+				C295E7372AA67B840002F492 /* StatementUpload.swift in Sources */,
 				C295E7322AA584270002F492 /* StatementViewModel.swift in Sources */,
 				C295E7212A9C50260002F492 /* TransactionModel.swift in Sources */,
 				C295E6F62A9488D30002F492 /* VaultApp.swift in Sources */,

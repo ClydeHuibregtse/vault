@@ -4,46 +4,36 @@
 //
 //  Created by Clyde Huibregtse on 9/3/23.
 //
-
-import Foundation
-
-
-
+import UniformTypeIdentifiers
 import Foundation
 import SwiftUI
-
-let PLUS_ICON = "\u{002B}"
-let DOWNLOAD_ICON = "\u{2913}"
-
-func makeButton(title: String, callback: @escaping () -> Void) -> some View {
-
-    return Button(action: {
-        print("Button Clicked: \(title)")
-        callback()
-    }) {
-        Text(title)
-            .font(.headline)
-            .fontWeight(Font.Weight.bold)
-    }
-        .foregroundColor(.white)
-        .cornerRadius(5)
-        .padding(3)
-}
 
 
 struct DBButtons: View {
     
-    @ObservedObject var viewModel: TransactionsViewModel
+    @ObservedObject var txViewModel: TransactionsViewModel
+    @ObservedObject var stmtViewModel: StatementsViewModel
+
+    @State private var isUploadFormShowing = false
     
     var body: some View {
         HStack {
             makeButton(title: PLUS_ICON, callback: {
-                print("Adding a new statement")
+                print("Adding new statements")
+                isUploadFormShowing.toggle()
             })
             makeButton(title: DOWNLOAD_ICON) {
                 print("Downloading result DB")
             }
             Spacer()
+        }
+        .sheet(isPresented: $isUploadFormShowing) {
+            StatementUploadForm(
+                stmtViewModel: stmtViewModel,
+                txViewModel: txViewModel,
+                isUploadFormShowing: $isUploadFormShowing,
+                transactionMethods: Set(txViewModel.getMethods())
+            ).frame(width: 1000) // TODO ??
         }
     }
     
@@ -137,7 +127,10 @@ struct DBViewer: View {
     
         VStack {
             // Buttons
-            DBButtons(viewModel: txViewModel)
+            DBButtons(
+                txViewModel: txViewModel,
+                stmtViewModel: stmtViewModel
+            )
             
             // Statement listing
             DBStatements(viewModel: stmtViewModel)
@@ -146,6 +139,7 @@ struct DBViewer: View {
                 txViewModel.fetchTransactions()
                 stmtViewModel.fetchStatements()
             }
+
     }
         
 }

@@ -11,9 +11,9 @@ class TransactionsViewModel: ObservableObject {
     @Published var transactions: [Transaction] = []
 
     func fetchTransactions(forceFetch: Bool = false) {
-        if self.transactions.count != 0 && !forceFetch {
-            return
-        }
+//        if self.transactions.count != 0 && !forceFetch {
+//            return
+//        }
         requestJSON(endpoint:"/transactions") { result in
             self.transactions = result
         }
