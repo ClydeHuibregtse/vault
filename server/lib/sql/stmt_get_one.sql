@@ -1,1 +1,1 @@
-SELECT * FROM statements WHERE id = $1
+SELECT * FROM statements WHERE id = ?

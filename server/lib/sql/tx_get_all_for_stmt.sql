@@ -1,0 +1,1 @@
+SELECT id FROM transactions WHERE stmt_id = $1 ORDER BY amount DESC;

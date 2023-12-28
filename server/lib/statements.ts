@@ -1,11 +1,17 @@
 /*
     Module for handling any type of tabular statement
 */
-import fs from "fs";
-import path from "path";
+import * as fs from "fs";
+import * as path from "path";
 import csvParser from "csv-parser";
+
 import { hash } from "./hash";
-import { TransactionMethod, Transaction, RawTransaction } from "./transactions";
+import {
+    TransactionMethod,
+    Transaction,
+    RawTransaction,
+    stringToTransactionMethod,
+} from "./transactions";
 
 export const STATEMENT_STORAGE_PATH = path.join(__dirname, "..", "data");
 
@@ -13,29 +19,52 @@ export class Statement {
     constructor(
         public transactions: Transaction[],
         public pathToCSV: string,
-        public transactionMethod: TransactionMethod,
-        public date: Date
+        public transactionMethod: TransactionMethod | undefined,
+        public date: Date,
     ) {}
 
+    toJSON(): Record<string, any> {
+        let json = {};
+        Object.keys(this).forEach((key) => (json[key] = this[key]));
+        json["id"] = this.id;
+        return json;
+    }
+
     toColumns(): any[] {
-        return [this.hash(), path.resolve(this.pathToCSV), this.transactionMethod, this.date.toISOString()];
+        return [
+            this.hash(),
+            path.resolve(this.pathToCSV),
+            this.transactionMethod,
+            this.date.toISOString(),
+        ];
     }
 
     private hash(): number {
-        return hash(JSON.stringify(this));
+        return hash(`${this.date}${this.transactionMethod}`);
     }
 
-    public id(): number {
+    get id(): number {
         return this.hash();
     }
 
     static async fromCSV(
         pathToCSV: string,
-        txMethod: TransactionMethod,
-        date: Date
+        txMethod: TransactionMethod | undefined,
+        date: Date,
     ): Promise<Statement> {
         const txs = await Statement.readCSV(pathToCSV, txMethod);
-        return new Statement(txs, pathToCSV, txMethod, date);
+        let stmt = new Statement(txs, pathToCSV, txMethod, date);
+        stmt.transactions.forEach((tx) => (tx.stmt_id = stmt.id));
+        return stmt;
+    }
+
+    static fromRecord(object: Record<string, any>): Statement {
+        return new Statement(
+            object.transactions,
+            object.pathToCSV,
+            stringToTransactionMethod(object.transactionMethod),
+            new Date(object.date),
+        );
     }
 
     static readCSV(
@@ -54,16 +83,3 @@ export class Statement {
         });
     }
 }
-
-// (async () => {
-//     try {
-//         // const catFinder: CategoryFinder = new CategoryFinder("test")
-//         // catFinder.getCategory();
-
-//         const filePath = `${__dirname}/../data/activity-2.csv`;
-//         const stmt = await Statement.fromCSV(filePath);
-//         console.log(stmt);
-//     } catch (error) {
-//         console.error("Error reading CSV file:", error);
-//     }
-// }) ();

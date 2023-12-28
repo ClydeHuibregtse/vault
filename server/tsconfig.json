@@ -2,10 +2,14 @@
   "compilerOptions": {
     "module": "CommonJS",
     "moduleResolution": "Node",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "esModuleInterop": true
     /* ... your props ... */
   },
   "ts-node": {
       "esm": true,
       "experimentalSpecifierResolution": "node",
-  }
+  },
+  "include": ["lib/**/*.ts", "test/**/*.ts"]
 }

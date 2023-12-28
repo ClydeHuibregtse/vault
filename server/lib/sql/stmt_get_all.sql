@@ -1,2 +1,2 @@
--- Selects all txs from statements
+-- Selects all statements
 SELECT * FROM statements;

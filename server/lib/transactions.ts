@@ -21,23 +21,25 @@ export enum TransactionMethod {
     CASH = "Cash",
 }
 
-export function stringToTransactionMethod(value: string): TransactionMethod | null {
+export function stringToTransactionMethod(
+    value: string,
+): TransactionMethod | undefined {
     if (value == TransactionMethod.AMEX_CC) {
-        return TransactionMethod.AMEX_CC
+        return TransactionMethod.AMEX_CC;
     }
     if (value == TransactionMethod.FIDELITY_CC) {
-        return TransactionMethod.FIDELITY_CC
+        return TransactionMethod.FIDELITY_CC;
     }
     if (value == TransactionMethod.FIDELITY_DC) {
-        return TransactionMethod.FIDELITY_DC
+        return TransactionMethod.FIDELITY_DC;
     }
     if (value == TransactionMethod.APPLE_CC) {
-        return TransactionMethod.APPLE_CC
+        return TransactionMethod.APPLE_CC;
     }
     if (value == TransactionMethod.CASH) {
-        return TransactionMethod.CASH
+        return TransactionMethod.CASH;
     }
-  }
+}
 
 export class Transaction {
     constructor(
@@ -57,6 +59,12 @@ export class Transaction {
             this.method,
             this.description,
         ];
+    }
+
+    public toJSON(): Record<string, any> {
+        let json = {};
+        Object.keys(this).forEach((key) => (json[key] = this[key]));
+        return json;
     }
 
     public static fromRaw(data: any, txMethod: TransactionMethod): Transaction {
@@ -81,6 +89,17 @@ export class Transaction {
                 data.Description,
             );
         }
+    }
+
+    public static fromRecord(obj: Record<string, any>): Transaction {
+        return new Transaction(
+            obj.date,
+            obj.category,
+            obj.amount,
+            obj.method,
+            obj.description,
+            obj.stmt_id,
+        );
     }
 }
 

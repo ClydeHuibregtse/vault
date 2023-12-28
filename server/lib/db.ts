@@ -1,13 +1,28 @@
-import sqlite3 from "sqlite3";
-import path from "path";
-import fs from "fs";
+import * as sqlite3 from "sqlite3";
+import * as path from "path";
+import * as fs from "fs";
+import { Logger, ILogObj } from "tslog";
 import { Transaction, TransactionMethod } from "./transactions";
 import { Statement } from "./statements";
+import { SQLITEError } from "./errors";
+
+// TODO: determine install location
+export const INSTALL_DIR = "/opt/vault";
+export const TRANSACTION_DB_PATH = path.join(INSTALL_DIR, "transactions.db");
 
 // Relative path to the directory of sql files
 const SQL_INSTRUCTION_PATH = path.join(__dirname, "sql");
-// For now, store the db file in the same directory
-export const TRANSACTION_DB_PATH = path.join(SQL_INSTRUCTION_PATH, "transactions.db");
+
+// Logger for all interactions with the DB
+// Pipe to a file (and optionally hide from stdout)
+const logger = new Logger({ name: "txDB" });
+function logToTransport(logObject: ILogObj) {
+    fs.appendFileSync(
+        path.join(INSTALL_DIR, "txDB_log.txt"),
+        JSON.stringify(logObject) + "\n",
+    );
+}
+logger.attachTransport(logToTransport);
 
 // Make a custom type to hint at valid sql commands loaded from disk
 type SqlString = string;
@@ -26,144 +41,238 @@ const SqlCommand = {
     INSERT_TX: loadSQLCmd("tx_insert"),
     INSERT_STMT: loadSQLCmd("stmt_insert"),
     GET_ALL_TX: loadSQLCmd("tx_get_all"),
+    GET_ALL_TX_ID: loadSQLCmd("tx_get_all_id"),
+    GET_ONE_TX: loadSQLCmd("tx_get_one"),
+    GET_ALL_TX_FOR_STMT: loadSQLCmd("tx_get_all_for_stmt"),
     GET_ALL_STMT: loadSQLCmd("stmt_get_all"),
-    GET_ONE_STMT: loadSQLCmd("stmt_get_one")
+    GET_ALL_STMT_ID: loadSQLCmd("stmt_get_all_id"),
+    GET_ONE_STMT: loadSQLCmd("stmt_get_one"),
 };
 
-function _defaultDBCallback(obj: any, err, res, rej) {
-    if (err) {
-        rej(err);
-    } else {
-        res(obj);
+function errorParse(err): Error | undefined {
+    // Catch specific errors and call the Promise reject
+    if (SQLITEError.isSQLITEError(err)) {
+        return new SQLITEError(err["code"]);
+    } else if (err) {
+        return err;
     }
+    return undefined;
 }
 
+// Class representing a SQLite transaction database
 export class TransactionDB {
     db: sqlite3.Database | undefined;
+    dbPath: string | undefined;
 
     constructor() {
-        this.db = null;
+        this.db = undefined;
     }
 
-    // Create tables, if they don't already exist
+    /**
+     * Initialize the database and create tables if they don't exist.
+     * @param dbPath - Path to the SQLite database file.
+     */
     initialize(dbPath: string): Promise<TransactionDB> {
-        console.log(`Initializing DB to path: ${dbPath}`);
-        const db = new sqlite3.Database(dbPath);
+        logger.info(`Initializing DB to path: ${dbPath}`);
         return new Promise((res, rej) => {
-            this.db = db.exec(SqlCommand.CREATE_TABLES, (err) =>
-                _defaultDBCallback(this, err, res, rej),
-            );
+            const db = new sqlite3.Database(dbPath);
+            this.dbPath = dbPath;
+            this.db = db;
+            this.db.exec(SqlCommand.CREATE_TABLES, (err) => {
+                let parsedErr = errorParse(err);
+                parsedErr && rej(parsedErr);
+            });
+            res(this);
         });
     }
 
-    // Close DB connection
+    /**
+     * Close the database connection.
+     */
     close(): Promise<TransactionDB> {
+        logger.info(`Closing DB connection`);
         return new Promise((res, rej) => {
-            this.db.close((err) => _defaultDBCallback(this, err, res, rej));
+            this.db.close((err) => {
+                let parsedErr = errorParse(err);
+                parsedErr && rej(parsedErr);
+            });
+            res(this);
         });
     }
 
-    // Clear all entries from Tx table
+    /**
+     * Clear all entries from the transactions table.
+     */
     clear(): Promise<TransactionDB> {
+        logger.info(`Clearing DB tables: ${this.dbPath}`);
         return new Promise((res, rej) => {
-            this.db.run(SqlCommand.CLEAR, (err) =>
-                _defaultDBCallback(this, err, res, rej),
-            );
+            this.db.exec(SqlCommand.CLEAR, (err) => {
+                let parsedErr = errorParse(err);
+                parsedErr && rej(parsedErr);
+            });
+            res(this);
         });
     }
 
-    // Insert a transaction
+    /**
+     * Insert a transaction into the database.
+     * @param tx - The transaction to be inserted.
+     * @param stmtID - Statement ID associated with the transaction.
+     */
     insertTransaction(
         tx: Transaction,
         stmtID: number = -1,
     ): Promise<TransactionDB> {
-        console.log(`Inserting Transaction: ${[...tx.toColumns(), stmtID]}`);
+        logger.info(`Inserting Transaction (${stmtID})`);
         return new Promise((res, rej) => {
             this.db.run(
                 SqlCommand.INSERT_TX,
                 [...tx.toColumns(), stmtID],
-                (err) => _defaultDBCallback(this, err, res, rej),
+                (err) => {
+                    let parsedErr = errorParse(err);
+                    parsedErr && rej(parsedErr);
+                },
             );
+            res(this);
         });
     }
 
-    // Insert many transactions
+    /**
+     * Insert multiple transactions into the database.
+     * @param txs - Array of transactions to be inserted.
+     * @param stmtID - Statement ID associated with the transactions.
+     */
     insertTransactions(
         txs: Transaction[],
         stmtID: number = -1,
     ): Promise<TransactionDB> {
         return new Promise((res, rej) => {
-            txs.forEach((tx) => this.insertTransaction(tx, stmtID));
-            res(this);
+            Promise.all(
+                txs.map((tx) => this.insertTransaction(tx, stmtID)),
+            ).then((value) => res(this));
         });
     }
 
-    // Returns all transactions in the table
-    getAllTransactions(): Promise<Transaction[] | undefined> {
+    getTransaction(txID: number): Promise<Transaction> {
         return new Promise((res, rej) => {
-            this.db.all(SqlCommand.GET_ALL_TX, (err, rows: Transaction[]) =>
-                _defaultDBCallback(rows, err, res, rej),
+            this.db.all(SqlCommand.GET_ONE_TX, [txID], (err, rows: any[]) => {
+                let parsedErr = errorParse(err);
+                if (parsedErr) {
+                    rej(err);
+                } else if (rows.length == 0) {
+                    rej(`No transaction with ${txID}`);
+                } else {
+                    res(Transaction.fromRecord(rows[0]));
+                }
+            });
+        });
+    }
+
+    /**
+     * Get all transactions from the database.
+     */
+    getAllTransactions(): Promise<Transaction[]> {
+        return new Promise((res, rej) => {
+            this.db.all(SqlCommand.GET_ALL_TX_ID, (err, rows: any[]) => {
+                let parsedErr = errorParse(err);
+                if (parsedErr) {
+                    rej(err);
+                } else if (rows == undefined || rows == null) {
+                    res([]);
+                } else {
+                    const txPromises = rows.map((idJson) =>
+                        this.getTransaction(idJson.id),
+                    );
+                    Promise.all(txPromises).then((txs) => res(txs));
+                }
+            });
+        });
+    }
+
+    /**
+     * Insert a statement and all of its transactions into the database.
+     * @param stmt - The statement to be inserted.
+     */
+    insertStatement(stmt: Statement): Promise<TransactionDB> {
+        logger.info(`Inserting Statement: ${JSON.stringify(stmt)}`);
+        return new Promise((res, rej) => {
+            this.db.run(SqlCommand.INSERT_STMT, stmt.toColumns(), (err) => {
+                let parsedErr = errorParse(err);
+                if (parsedErr) {
+                    rej(parsedErr);
+                } else {
+                    this.insertTransactions(stmt.transactions, stmt.id).then(
+                        (value) => res(this),
+                    );
+                }
+            });
+        });
+    }
+
+    getTransactionsForStatement(stmtID: number): Promise<Transaction[]> {
+        return new Promise((res, rej) => {
+            this.db.all(
+                SqlCommand.GET_ALL_TX_FOR_STMT,
+                stmtID,
+                (err, rows: number[]) => {
+                    let parsedErr = errorParse(err);
+                    if (parsedErr) {
+                        rej(parsedErr);
+                    } else {
+                        let txPromises = rows.map((txPartial) => {
+                            return this.getTransaction(txPartial["id"]);
+                        });
+                        res(Promise.all(txPromises));
+                    }
+                },
             );
         });
     }
 
-    // Insert statement and all of its transactions
-    async insertStatement(stmt: Statement): Promise<TransactionDB> {
+    /**
+     * Get all statements from the database.
+     */
+    getAllStatements(): Promise<Statement[]> {
         return new Promise((res, rej) => {
-            this.db.run(SqlCommand.INSERT_STMT, stmt.toColumns(), (err) =>
-                _defaultDBCallback(this, err, res, rej),
-            );
-        }).then((db: TransactionDB) => {
-            db.insertTransactions(stmt.transactions, stmt.id());
-            return new Promise((res, rej) => res(db));
+            this.db.all(SqlCommand.GET_ALL_STMT_ID, (err, rows: number[]) => {
+                let parsedErr = errorParse(err);
+                if (parsedErr) {
+                    rej(parsedErr);
+                } else if (!err && (rows == undefined || rows == null)) {
+                    res([]);
+                } else {
+                    Promise.all(
+                        rows.map((idJson) => this.getStatement(idJson["id"])),
+                    ).then((statements) => {
+                        res(statements);
+                    });
+                }
+            });
         });
     }
 
-    getAllStatements(): Promise<Statement[] | undefined> {
+    /**
+     * Get a statement by its ID from the database.
+     * @param stmtID - The ID of the statement to retrieve.
+     */
+    getStatement(stmtID: number): Promise<Statement> {
         return new Promise((res, rej) => {
-            this.db.all(SqlCommand.GET_ALL_STMT, (err, rows: Statement[]) =>
-                _defaultDBCallback(rows, err, res, rej),
-            );
+            this.db.all(SqlCommand.GET_ONE_STMT, stmtID, (err, rows: any[]) => {
+                let parsedErr = errorParse(err);
+                if (parsedErr) {
+                    rej(parsedErr);
+                } else if (rows.length == 0) {
+                    rej(`No statement with id ${stmtID}`);
+                } else {
+                    this.getTransactionsForStatement(stmtID).then((txs) => {
+                        let stmt = Statement.fromRecord({
+                            transactions: txs,
+                            ...rows[0],
+                        });
+                        res(stmt);
+                    });
+                }
+            });
         });
     }
-
-    getStatement(stmtID: Number): Promise<Statement | undefined> {
-        return new Promise((res, rej) => {
-            this.db.all(SqlCommand.GET_ONE_STMT, stmtID, (err, rows: Statement[]) =>
-                _defaultDBCallback(rows[0], err, res, rej),
-            );
-        });
-    }
-
 }
-
-// (async () => {
-//     const txDB = new TransactionDB();
-
-//     await txDB.initialize(TRANSACTION_DB_PATH);
-//     await txDB.clear();
-//     const filePath1 = `${__dirname}/../data/apple.csv`;
-//     const d1 = new Date("1998-06-01");
-//     const d2 = new Date("1999-06-01");
-//     const filePath2 = `${__dirname}/../data/activity-2.csv`;
-//     // const stmt1 = await Statement.fromCSV(
-//     //     filePath1,
-//     //     TransactionMethod.APPLE_CC,
-//     //     d1
-//     // );
-//     // const stmt2 = await Statement.fromCSV(filePath2, TransactionMethod.AMEX_CC, d2);
-//     // console.log(stmt2)
-//     // await txDB.insertStatement(stmt1);
-//     // await txDB.insertStatement(stmt2);
-//     // let txs = [];
-//     // for (let i = 0; i < 10; i++) {
-//     //     const tx1 = new Transaction("2023-06-16", "jkl;", 20.0 * i + 1, TransactionMethod.AMEX_CC, "a purchase")
-//     //     // await txDB.insertTransaction(tx1);
-//     //     txs.push(tx1);
-//     // }
-//     // const stmt = new Statement(txs, "test.csv");
-//     // await txDB.insertTransactions(txs);
-//     let txs_ = await txDB.getAllTransactions();
-//     console.log(txs_);
-//     await txDB.close();
-// })();
