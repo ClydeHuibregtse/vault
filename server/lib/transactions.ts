@@ -48,7 +48,6 @@ export class Transaction {
         public amount: number,
         public method: TransactionMethod,
         public description: string,
-        public stmt_id: number = -1,
     ) {}
 
     public toColumns(): any[] {
@@ -97,8 +96,7 @@ export class Transaction {
             obj.category,
             obj.amount,
             obj.method,
-            obj.description,
-            obj.stmt_id,
+            obj.description
         );
     }
 }

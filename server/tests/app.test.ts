@@ -37,12 +37,11 @@ mocha.describe('Express App API', async () => {
                 .post('/statements/upload')
                 .attach("file", path.join(TEST_STATEMENTS_DIR, "apple.csv"))
         expect(noparams).to.have.status(400);
-        expect(noparams.body).to.equal("Bad request: Error parsing date undefined");
+        expect(noparams.body).to.equal("Bad request: TX Method not found in query");
 
         // With a file and params, we should be golden
         const uploadSuccess = await chai.request(app)
             .post('/statements/upload')
-            .field("date", exampleStmt.date.toString())
             .field("txMethod", exampleStmt.transactionMethod as string)
             .attach("file", path.join(TEST_STATEMENTS_DIR, "apple.csv"))
         
@@ -69,7 +68,6 @@ mocha.describe('Express App API', async () => {
         const app = makeApp();
         const uploadSuccess = await chai.request(app)
             .post('/statements/upload')
-            .field("date", exampleStmt.date.toString())
             .field("txMethod", exampleStmt.transactionMethod as string)
             .attach("file", path.join(TEST_STATEMENTS_DIR, "apple.csv"))
         
@@ -78,7 +76,7 @@ mocha.describe('Express App API', async () => {
         expect(uploadSuccess.body.numberTx).to.equal(exampleStmt.transactions.length);
 
         const download = await chai.request(app)
-            .get(`/statements/${exampleStmt.id}/download`)
+            .get(`/statements/1/download`)
 
         expect(download).to.have.status(200);
         expect(download).to.have.header('content-type', 'text/csv; charset=UTF-8');

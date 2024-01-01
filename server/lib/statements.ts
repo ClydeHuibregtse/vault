@@ -20,41 +20,27 @@ export class Statement {
         public transactions: Transaction[],
         public pathToCSV: string,
         public transactionMethod: TransactionMethod | undefined,
-        public date: Date,
     ) {}
 
     toJSON(): Record<string, any> {
         let json = {};
         Object.keys(this).forEach((key) => (json[key] = this[key]));
-        json["id"] = this.id;
         return json;
     }
 
     toColumns(): any[] {
         return [
-            this.hash(),
             path.resolve(this.pathToCSV),
             this.transactionMethod,
-            this.date.toISOString(),
         ];
-    }
-
-    private hash(): number {
-        return hash(`${this.date}${this.transactionMethod}`);
-    }
-
-    get id(): number {
-        return this.hash();
     }
 
     static async fromCSV(
         pathToCSV: string,
-        txMethod: TransactionMethod | undefined,
-        date: Date,
+        txMethod: TransactionMethod | undefined
     ): Promise<Statement> {
         const txs = await Statement.readCSV(pathToCSV, txMethod);
-        let stmt = new Statement(txs, pathToCSV, txMethod, date);
-        stmt.transactions.forEach((tx) => (tx.stmt_id = stmt.id));
+        let stmt = new Statement(txs, pathToCSV, txMethod);
         return stmt;
     }
 
@@ -63,7 +49,6 @@ export class Statement {
             object.transactions,
             object.pathToCSV,
             stringToTransactionMethod(object.transactionMethod),
-            new Date(object.date),
         );
     }
 

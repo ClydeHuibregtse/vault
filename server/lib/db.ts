@@ -201,9 +201,17 @@ export class TransactionDB {
                 if (parsedErr) {
                     rej(parsedErr);
                 } else {
-                    this.insertTransactions(stmt.transactions, stmt.id).then(
-                        (value) => res(this),
-                    );
+                    // Get the statement ID from lookup, and insert the
+                    // transactions from there
+                    this.db.get("SELECT last_insert_rowid() AS lastId FROM statements", (err, row) => {
+                        console.log(row, err);
+                        const lastId = row["lastId"];
+                        logger.info(`Inserted statement with id: ${lastId}. Inserting transactions`)
+                        this.insertTransactions(stmt.transactions, lastId).then(
+                            (value) => res(this),
+                        );
+                    })
+
                 }
             });
         });

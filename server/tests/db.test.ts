@@ -102,9 +102,9 @@ mocha.describe('TransactionDB', () => {
         // Getting a single transaction should match
         assert.deepEqual(await db.getTransaction(1), stmt.transactions[0]);
         // Getting all for this statement should match as well
-        assert.deepEqual(await db.getTransactionsForStatement(stmt.id), stmt.transactions.sort((a, b) => b.amount - a.amount));
+        assert.deepEqual(await db.getTransactionsForStatement(1), stmt.transactions.sort((a, b) => b.amount - a.amount));
         // Can get one statement
-        assert.deepEqual(await db.getStatement(stmt.id), stmt)
+        assert.deepEqual(await db.getStatement(1), stmt)
         // And then all statements
         assert.deepEqual(await db.getAllStatements(), [stmt]);
     });

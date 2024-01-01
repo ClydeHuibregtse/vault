@@ -33,7 +33,7 @@ export function makeApp(dbPath: string = TRANSACTION_DB_PATH): Express {
     const db = new TransactionDB();
     db.initialize(dbPath);
     // TODO: Handle re-initialization
-    // db.clear();
+    db.clear();
 
     /** 
      *  Public API  *
@@ -57,20 +57,18 @@ export function makeApp(dbPath: string = TRANSACTION_DB_PATH): Express {
         logger.info(`User requests Statement: ${stmtID}`);
 
         // Look up the statement in the DB
-        const stmt = await db.getStatement(stmtID);
-        // Statement does not exist
-        if (stmt == undefined) {
-            return res.status(404).send('Statement not found');
+        try {
+            var stmt = await db.getStatement(stmtID);
+        } catch (dbError) {
+            return res.status(404).send(`Statement ${stmtID} not found`)
         }
-
+        
         // Check if the file exists
         if (!fs.existsSync(stmt.pathToCSV)) {
             return res.status(404).send('CSV file not found');
         }
 
-        // Coerce reasonable file name
-        const date = new Date(stmt.date);
-        const downloadName = `${stmt.transactionMethod}_${date.getFullYear()}_${date.getMonth()}`.replace(/\s+/g, '');
+        const downloadName = `${stmt.transactionMethod}`.replace(/\s+/g, '');
 
         // Send the file
         res.download(stmt.pathToCSV, downloadName);
@@ -98,33 +96,17 @@ export function makeApp(dbPath: string = TRANSACTION_DB_PATH): Express {
         }
         logger.info(`Receiving uploaded file: ${req["file"]}`);
 
-        // Parse the supplied date
-        const dateString = req.body.date;
-        let date: Date;
-        try {
-            // if no date is provided, throw
-            if (dateString == undefined) {
-                throw new Error("No date provided");
-            }
-            date = new Date((dateString as string));
-
-        } catch (err) {
-            // Some error parsing date
-            return res.status(400).json(`Bad request: Error parsing date ${dateString}`);
-        }
-
         // Get the transaction method
         const transactionMethod = req.body.txMethod;
         if (transactionMethod == undefined) {
-            return res.status(400).json(`Bad request: TX Method not found in ${req.query}`);
+            return res.status(400).json('Bad request: TX Method not found in query');
         }
 
         const filePath = path.join(req["file"].destination, req["file"].filename)
-        logger.info(`User is uploading a CSV for ${date}, ${transactionMethod} to filepath: ${filePath}`)
+        logger.info(`User is uploading a CSV for ${transactionMethod} to filepath: ${filePath}`)
         const stmt = await Statement.fromCSV(
             filePath,
-            stringToTransactionMethod(transactionMethod as string),
-            date
+            stringToTransactionMethod(transactionMethod as string)
         );
         await db.insertStatement(stmt);
         logger.info(`All ${stmt.transactions.length} txs are inserted`);

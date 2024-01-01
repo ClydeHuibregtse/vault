@@ -26,7 +26,6 @@ export interface Statement {
     pathToCSV: string,
     transactionMethod: string,
     transactions: Transaction[],
-    date: Date,
 }
 
 class DBClient {
