@@ -11,7 +11,8 @@ chai.use(chaiHttp);
 
 mocha.describe('Express App API', async () => {
     it('should respond with status 200 on GET request to /', (done) => {
-        const app = makeApp();
+        const app = makeApp(undefined, true);
+
         chai.request(app)
             .get('/')
             .end((err, res) => {
@@ -24,7 +25,7 @@ mocha.describe('Express App API', async () => {
     });
     it('should be able to receive and regurgitate statements', async () => {
         const exampleStmt = await statementFactory();
-        const app = makeApp()
+        const app = makeApp(undefined, true)
         // Without providing a file, this should fail with bad request
         const nofile = await chai.request(app)
                     .post('/statements/upload');
@@ -65,7 +66,7 @@ mocha.describe('Express App API', async () => {
     it('should be able to download raw CSVs',  async () => {
         // Insert a generic statement. Let's see if we can download
         const exampleStmt = await statementFactory();
-        const app = makeApp();
+        const app = makeApp(undefined, true);
         const uploadSuccess = await chai.request(app)
             .post('/statements/upload')
             .field("txMethod", exampleStmt.transactionMethod as string)

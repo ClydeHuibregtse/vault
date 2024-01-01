@@ -22,7 +22,7 @@ function logToTransport(logObject: ILogObj) {
 logger.attachTransport(logToTransport)
 
 const port = 3000
-export function makeApp(dbPath: string = TRANSACTION_DB_PATH): Express {
+export function makeApp(dbPath: string = TRANSACTION_DB_PATH, clear: boolean = false): Express {
     // Start application
     const app = express()
 
@@ -33,7 +33,9 @@ export function makeApp(dbPath: string = TRANSACTION_DB_PATH): Express {
     const db = new TransactionDB();
     db.initialize(dbPath);
     // TODO: Handle re-initialization
-    db.clear();
+    if (clear) {
+        db.clear();
+    }
 
     /** 
      *  Public API  *
