@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import { uploadStatement } from "$lib/model/db.ts";
+    import { dbClient } from "$lib/model/db.ts";
 
     // Filepaths of various statements
     interface UploadableStatement {
@@ -17,7 +17,7 @@
         let statementPromises = [];
         for (const stmt of upStmts) {
             console.log(stmt.date);
-            let promise = uploadStatement(
+            let promise = dbClient.uploadStatement(
                 stmt.file,
                 new Date(stmt.date),
                 stmt.txMethod

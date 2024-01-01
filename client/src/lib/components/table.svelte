@@ -1,9 +1,19 @@
 <script lang="ts">
-
-    import { getTransactions, getStatements, Transaction, Statement} from "$lib/model/db.ts";
-    import { onMount } from "svelte";
+    import { statementStore } from "$lib/model/db.ts";
+    import type { Statement, Transaction } from "$lib/model/db.ts";
     import SvelteTable from "svelte-table";
     import type { TableColumn } from "svelte-table";
+
+    // Read from the statement store
+    let statements: Statement[];
+    $: statements = $statementStore;
+    let transactions: Transaction[];
+    $: transactions = allTransactions(statements);
+
+    function allTransactions(stmts: Statement[]): Transaction[] {
+        let txs = stmts.map((s) => s.transactions);
+        return txs.flat();
+    }
 
     function setupColumns(tx: Transaction): TableColumn<Transaction>[] {
         let columns: TableColumn<Transaction>[] = [];
@@ -17,23 +27,11 @@
         });
         return columns
     }
-    
-    async function initialize() : Promise<[TableColumn<Transaction>[], Transaction[]]> {
-        let transactions = await getTransactions();
-        return new Promise((res, rej) => {
-            if (transactions.length == 0) {
-                rej("No transactions")
-            }
-            const columns = setupColumns(transactions[0]);
-            res([columns, transactions])
-        })
-    }
+
 
 </script>
-{#await initialize()}
+{#if transactions.length > 0}
+    <SvelteTable columns="{setupColumns(transactions[0])}" rows="{transactions}"></SvelteTable>
+{:else}
     <p>Loading...</p>
-{:then data}
-    <SvelteTable columns="{data[0]}" rows="{data[1]}"></SvelteTable>
-{:catch err}
-    {err}
-{/await}
+{/if}

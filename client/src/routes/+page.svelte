@@ -1,10 +1,16 @@
 <script lang="ts">
+    import { dbClient } from "$lib/model/db.ts";
+    import { onMount } from "svelte";
     import ErrorBanner from "$lib/components/error.svelte"
     import TransactionTable from "$lib/components/table.svelte";
     import StatementUpload from "$lib/components/upload.svelte";
     import StatementDownload from "$lib/components/download.svelte";
 
     let eBanner: ErrorBanner;
+
+    onMount(async () => {
+        await dbClient.getStatements();
+    });
 
 </script>
 

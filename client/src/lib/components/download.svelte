@@ -1,27 +1,17 @@
 <script lang="ts">
-    import {onMount} from "svelte";
-    import { Statement, getStatements, downloadStatementLink } from "$lib/model/db.ts";
+    import { dbClient, statementStore } from "$lib/model/db.ts";
+    import type { Statement } from "$lib/model/db.ts";
 
-    let remoteStatements: Statement[] = [];
-
-    async function refreshRemoteStatements() {
-        remoteStatements = await getStatements();
-    }
-
-
-    onMount(async () => {
-        await refreshRemoteStatements();
-        console.log("STATE<ENTS", remoteStatements);
-    })
-    
+    let statements: Statement[];
+    $: statements = $statementStore;
 
 </script>
 
 <div id="downloader">
     <table class="statement-download-table">
-        {#each remoteStatements as stmt, index (stmt)}
+        {#each statements as stmt, index (stmt)}
             <tr>
-                <td><a href={downloadStatementLink(stmt.id)}>
+                <td><a href={dbClient.downloadStatementLink(stmt.id)}>
                     {stmt.pathToCSV}
                 </a></td>
             </tr>

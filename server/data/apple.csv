@@ -1,0 +1,6 @@
+Transaction Date,Clearing Date,Description,Merchant,Category,Type,Amount (USD),Purchased By
+07/29/2023,07/31/2023,"UNITED 600 JEFFERSON ST HQJCM 19TH FL 800-932-2732 77002 TX USA","United Airlines","Airlines","Purchase","303.80","Clyde Huibregtse"
+07/30/2023,07/30/2023,"ACH DEPOSIT INTERNET TRANSFER FROM ACCOUNT ENDING IN 4250","Ach Deposit Internet Transfer From Account Ending In 4250","Payment","Payment","-1027.78","Clyde Huibregtse"
+07/27/2023,07/28/2023,"APPLE.COM/BILL ONE APPLE PARK WAY 866-712-7753 95014 CA USA","Apple Services","Other","Purchase","22.40","Clyde Huibregtse"
+07/26/2023,07/27/2023,"APPLE.COM/BILL ONE APPLE PARK WAY 866-712-7753 95014 CA USA","Apple Services","Other","Purchase","17.41","Clyde Huibregtse"
+07/26/2023,07/27/2023,"APPLE.COM/BILL ONE APPLE PARK WAY 866-712-7753 95014 CA USA","Apple Services","Other","Purchase","5.43","Clyde Huibregtse"
