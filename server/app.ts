@@ -4,7 +4,6 @@ import fs from 'fs';
 import path from "path";
 import multer from 'multer';
 import cors from 'cors';
-import http from 'http';
 import { Logger, ILogObj } from 'tslog';
 
 import { TransactionDB, TRANSACTION_DB_PATH, INSTALL_DIR } from "./lib/db";
@@ -12,7 +11,7 @@ import { Statement, STATEMENT_STORAGE_PATH } from "./lib/statements";
 import { TransactionMethod, stringToTransactionMethod } from './lib/transactions';
 
 // Setup logger for API interactions
-const logger = new Logger({ name: "txDB" });
+export const logger = new Logger({ name: "txDB" });
 function logToTransport(logObject: ILogObj) {
     fs.appendFileSync(
         path.join(INSTALL_DIR, "api_log.txt"),
@@ -21,7 +20,6 @@ function logToTransport(logObject: ILogObj) {
 }
 logger.attachTransport(logToTransport)
 
-const port = 3000
 export function makeApp(dbPath: string = TRANSACTION_DB_PATH, clear: boolean = false): Express {
     // Start application
     const app = express()
@@ -121,10 +119,3 @@ export function makeApp(dbPath: string = TRANSACTION_DB_PATH, clear: boolean = f
 
 }
 
-// Start only if we run this as the main module
-if (require.main === module) {
-    const app = makeApp();
-    const server = app.listen(port, "0.0.0.0", () => {
-        logger.info(`Vault listening on port ${port}`)
-    })
-}

@@ -27,3 +27,7 @@ node_modules/
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+
+# Tauri build files
+**/build/

@@ -5,11 +5,15 @@
     import TransactionTable from "$lib/components/table.svelte";
     import StatementUpload from "$lib/components/upload.svelte";
     import StatementDownload from "$lib/components/download.svelte";
+    import { Command } from '@tauri-apps/api/shell'
 
     let eBanner: ErrorBanner;
 
     onMount(async () => {
         await dbClient.getStatements();
+        const command = Command.sidecar('binaries/vaultDB')
+        const output = await command.execute()
+        console.log("AYOOOO")
     });
 
 </script>

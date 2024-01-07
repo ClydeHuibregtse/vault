@@ -2,9 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.ts",
+  "main": "index.ts",
   "scripts": {
-    "start": "npx tsx app.ts",
+    "start": "npx tsx index.ts",
+    "build": "bun build ./index.ts --compile",
     "test": "mocha --require ts-node/register tests/**/*.test.ts",
     "format": "prettier --write \"lib/**/*.ts\"",
     "db": "[ -f lib/sql/transactions.db ] && rm lib/sql/transactions.db ; npx tsx app.ts"
